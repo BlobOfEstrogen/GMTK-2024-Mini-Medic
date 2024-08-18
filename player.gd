@@ -51,7 +51,7 @@ func _physics_process(delta):
 		if gun_1.can_fire: gun_1.fire()
 		if gun_2.can_fire: gun_2.fire()
 
-func damage(dmg: float, type: String)->bool:
+func damage(dmg: float, type: String, origin)->bool:
 	if damaged_by.has(type):
 		health -= dmg
 		print(health)

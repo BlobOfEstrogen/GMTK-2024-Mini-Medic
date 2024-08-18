@@ -1,4 +1,4 @@
-extends "res://AiComponent.gd"
+extends AiComponent
 
 var leap_cooldown: float = 1.0
 var timer: Timer

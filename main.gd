@@ -6,7 +6,7 @@ extends Node2D
 func _ready():
 	var timer: Timer = Timer.new()
 	timer.autostart = true
-	timer.wait_time = 10.0
+	timer.wait_time = 30.0
 	timer.timeout.connect(scale_increase)
 	add_child(timer)
 

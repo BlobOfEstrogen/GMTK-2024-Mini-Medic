@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://ceon2mk5ysbhw"]
+
+[ext_resource type="Script" path="res://ForceZone.gd" id="1_fyxka"]
+
+[node name="Force Zone" type="Area2D"]
+collision_layer = 0
+gravity_space_override = 3
+gravity = 0.0
+linear_damp_space_override = 3
+linear_damp = 1.0
+angular_damp_space_override = 3
+script = ExtResource("1_fyxka")
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]

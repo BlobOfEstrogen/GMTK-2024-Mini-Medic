@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://c74car4g412am"]
+
+[ext_resource type="PackedScene" uid="uid://bc73fxjtypk0y" path="res://wall.tscn" id="1_q70xb"]
+[ext_resource type="Script" path="res://vein.gd" id="1_tbvnv"]
+[ext_resource type="PackedScene" uid="uid://ceon2mk5ysbhw" path="res://force_zone.tscn" id="2_advna"]
+
+[node name="Vein" type="Node2D"]
+script = ExtResource("1_tbvnv")
+
+[node name="Line2D" parent="." instance=ExtResource("1_q70xb")]
+
+[node name="Force Zone" parent="." instance=ExtResource("2_advna")]
+
+[node name="Line2D2" parent="." instance=ExtResource("1_q70xb")]

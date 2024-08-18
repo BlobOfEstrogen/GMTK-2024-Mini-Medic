@@ -46,11 +46,13 @@ radius = 130.0
 height = 500.0
 
 [node name="Bacteria" type="RigidBody2D" node_paths=PackedStringArray("sprite", "ai_component", "damage_component")]
+gravity_scale = 0.0
 script = ExtResource("1_qclus")
 sprite = NodePath("AnimatedSprite2D")
 health = 150.0
 ai_component = NodePath("AiComponent")
 damage_component = NodePath("DamageComponent")
+damaged_by = Array[String](["Projectile", "White", "KillerT"])
 despawn_threshold = 24.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

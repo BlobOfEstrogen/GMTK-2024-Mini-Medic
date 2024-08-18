@@ -21,5 +21,6 @@ func _physics_process(delta):
 
 func _hit(body):
 	if body is Body: body.damage(damage, "Projectile", Global.player)
+	#wall hit code goes here
 	queue_free()
 

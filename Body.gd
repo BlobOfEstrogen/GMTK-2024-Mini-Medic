@@ -14,14 +14,14 @@ var has_collided = false
 func _ready():
 	sprite.play()
 	set_contact_monitor(true)
-	set_max_contacts_reported(1)
+	set_max_contacts_reported(2)
 	body_entered.connect(attack)
 
 func _integrate_forces(_state):
 	if Global.global_scale > despawn_threshold: despawn()
 	if ai_component is AiComponent: ai_component.move(self)
 	else:
-		var rand_vec = Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0))
+		var rand_vec = Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).normalized()
 		apply_force(rand_vec * randf_range(0.0, 500.0))
 	#Drag acceleratiion
 	apply_force(linear_velocity * -DRAG)
@@ -33,9 +33,11 @@ func attack(body):
 			damage_component.deal_damage(body)
 
 func damage(dmg: float, type: String, origin)->bool:
+	if is_queued_for_deletion(): return false
 	if damaged_by.has(type):
-		if origin is Body or origin is Player and ai_component:
-			ai_component.last_damage = origin
+		if ai_component:
+			if (origin is Body or origin is Player):
+				ai_component.last_damage = origin
 		health -= dmg
 		if health <= 0: 
 			queue_free()
