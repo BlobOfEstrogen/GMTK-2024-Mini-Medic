@@ -1,0 +1,85 @@
+[gd_scene load_steps=12 format=3 uid="uid://dau10qj0hedet"]
+
+[ext_resource type="Script" path="res://Body.gd" id="1_73jml"]
+[ext_resource type="Texture2D" uid="uid://b75sj816uidcx" path="res://whitebloodcell.png" id="2_6npd4"]
+[ext_resource type="Script" path="res://AiComponent.gd" id="2_mpydd"]
+[ext_resource type="Script" path="res://DamageComponent.gd" id="3_emcql"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kynyb"]
+atlas = ExtResource("2_6npd4")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3rpql"]
+atlas = ExtResource("2_6npd4")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1esak"]
+atlas = ExtResource("2_6npd4")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f3nxk"]
+atlas = ExtResource("2_6npd4")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pqvba"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kynyb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3rpql")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1esak")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f3nxk")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bhw45"]
+radius = 35.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yne55"]
+radius = 1024.0
+
+[node name="White Blood Cell" type="RigidBody2D" node_paths=PackedStringArray("sprite", "ai_component", "damage_component")]
+collision_layer = 5
+gravity_scale = 0.0
+script = ExtResource("1_73jml")
+sprite = NodePath("AnimatedSprite2D")
+health = 40.0
+ai_component = NodePath("AiComponent")
+damage_component = NodePath("DamageComponent")
+damaged_by = Array[String](["Projectile", "Virus", "Bacteria"])
+despawn_threshold = 8.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2.5, 2.5)
+sprite_frames = SubResource("SpriteFrames_pqvba")
+frame_progress = 0.842861
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_bhw45")
+
+[node name="AiComponent" type="Node2D" parent="." node_paths=PackedStringArray("search_area")]
+script = ExtResource("2_mpydd")
+search_area = NodePath("Area2D")
+speed = 250.0
+
+[node name="Area2D" type="Area2D" parent="AiComponent"]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AiComponent/Area2D"]
+shape = SubResource("CircleShape2D_yne55")
+
+[node name="DamageComponent" type="Node2D" parent="." node_paths=PackedStringArray("origin")]
+script = ExtResource("3_emcql")
+damage = 3.0
+type = "White"
+origin = NodePath("..")

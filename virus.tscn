@@ -1,0 +1,83 @@
+[gd_scene load_steps=12 format=3 uid="uid://chw7l6dbdk8r7"]
+
+[ext_resource type="Script" path="res://Body.gd" id="1_sx070"]
+[ext_resource type="Texture2D" uid="uid://bxxgq6odpxt3b" path="res://virus.png" id="2_6l7d8"]
+[ext_resource type="Script" path="res://VirusAiComponent.gd" id="2_kwwmh"]
+[ext_resource type="Script" path="res://VirusDamageComponent.gd" id="4_ja7sd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a1k45"]
+atlas = ExtResource("2_6l7d8")
+region = Rect2(0, 0, 12, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iu6bu"]
+atlas = ExtResource("2_6l7d8")
+region = Rect2(12, 0, 12, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mesa4"]
+atlas = ExtResource("2_6l7d8")
+region = Rect2(24, 0, 12, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_44wqb"]
+atlas = ExtResource("2_6l7d8")
+region = Rect2(36, 0, 12, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mhlmy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a1k45")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iu6bu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mesa4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_44wqb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3qwlf"]
+radius = 5.0
+height = 12.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gixln"]
+radius = 128.0
+
+[node name="Virus" type="RigidBody2D" node_paths=PackedStringArray("sprite", "ai_component", "damage_component")]
+collision_layer = 9
+gravity_scale = 0.0
+script = ExtResource("1_sx070")
+sprite = NodePath("AnimatedSprite2D")
+ai_component = NodePath("Ai")
+damage_component = NodePath("Damage")
+damaged_by = Array[String](["Projectile", "White"])
+despawn_threshold = 1.5
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_mhlmy")
+frame_progress = 0.338013
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -3)
+shape = SubResource("CapsuleShape2D_3qwlf")
+
+[node name="Ai" type="Node2D" parent="." node_paths=PackedStringArray("search_area")]
+script = ExtResource("2_kwwmh")
+search_area = NodePath("Area2D")
+
+[node name="Area2D" type="Area2D" parent="Ai"]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ai/Area2D"]
+shape = SubResource("CircleShape2D_gixln")
+
+[node name="Damage" type="Node2D" parent="." node_paths=PackedStringArray("origin")]
+script = ExtResource("4_ja7sd")
+type = "Virus"
+origin = NodePath("..")

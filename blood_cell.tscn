@@ -1,0 +1,64 @@
+[gd_scene load_steps=10 format=3 uid="uid://g80bw2povbkg"]
+
+[ext_resource type="Script" path="res://Body.gd" id="1_vo24w"]
+[ext_resource type="Texture2D" uid="uid://cso5yh42w1i4v" path="res://bloodcell.png" id="2_wbhwy"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_lqmgv"]
+friction = 0.0
+bounce = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8wjce"]
+atlas = ExtResource("2_wbhwy")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6nfdw"]
+atlas = ExtResource("2_wbhwy")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pet5f"]
+atlas = ExtResource("2_wbhwy")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vbjpu"]
+atlas = ExtResource("2_wbhwy")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wgo4v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8wjce")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6nfdw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pet5f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vbjpu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2r02c"]
+radius = 14.0
+
+[node name="Blood Cell" type="RigidBody2D" node_paths=PackedStringArray("sprite")]
+collision_layer = 5
+physics_material_override = SubResource("PhysicsMaterial_lqmgv")
+gravity_scale = 0.0
+script = ExtResource("1_vo24w")
+sprite = NodePath("AnimatedSprite2D")
+health = 10.0
+damaged_by = Array[String](["Projectile", "Virus"])
+despawn_threshold = 3.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_wgo4v")
+frame_progress = 0.180582
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_2r02c")

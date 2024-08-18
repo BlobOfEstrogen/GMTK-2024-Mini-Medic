@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://c713gdopxn0mv"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_jpbw7"]
+[ext_resource type="PackedScene" uid="uid://ccipipttaggab" path="res://gun.tscn" id="2_wdifr"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0sb8g"]
+radius = 16.0
+height = 64.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p1e7p"]
+albedo_color = Color(0.223529, 0.372549, 0.439216, 1)
+metallic = 0.25
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_c5dvu"]
+material = SubResource("StandardMaterial3D_p1e7p")
+radius = 16.0
+height = 64.0
+
+[node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("gun_1", "gun_2", "camera")]
+collision_layer = 13
+script = ExtResource("1_jpbw7")
+gun_1 = NodePath("Gun")
+gun_2 = NodePath("Gun2")
+camera = NodePath("Camera2D")
+damaged_by = Array[String](["Virus", "White"])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_0sb8g")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+rotation = 1.5708
+mesh = SubResource("CapsuleMesh_c5dvu")
+
+[node name="Gun" parent="." instance=ExtResource("2_wdifr")]
+position = Vector2(32, -8)
+rotation = 1.5708
+scale = Vector2(2, 2)
+
+[node name="Gun2" parent="." instance=ExtResource("2_wdifr")]
+position = Vector2(32, 8)
+rotation = 1.5708
+scale = Vector2(2, 2)
+flip_h = true
+
+[node name="Camera2D" type="Camera2D" parent="."]

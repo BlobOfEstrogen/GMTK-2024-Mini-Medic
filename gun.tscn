@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3 uid="uid://ccipipttaggab"]
+
+[ext_resource type="Texture2D" uid="uid://d325jg1vn7up7" path="res://gun.png" id="1_ddenc"]
+[ext_resource type="Script" path="res://Gun.gd" id="2_nsko5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kek67"]
+atlas = ExtResource("1_ddenc")
+region = Rect2(8, 0, 8, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cd8fo"]
+atlas = ExtResource("1_ddenc")
+region = Rect2(16, 0, 8, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p23mk"]
+atlas = ExtResource("1_ddenc")
+region = Rect2(24, 0, 8, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dhnit"]
+atlas = ExtResource("1_ddenc")
+region = Rect2(0, 0, 8, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_61o8s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kek67")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cd8fo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p23mk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dhnit")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
+
+[node name="Gun" type="AnimatedSprite2D" node_paths=PackedStringArray("projectile_spawn")]
+sprite_frames = SubResource("SpriteFrames_61o8s")
+frame = 3
+script = ExtResource("2_nsko5")
+projectile_spawn = NodePath("Node2D")
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(0.375, -7.625)

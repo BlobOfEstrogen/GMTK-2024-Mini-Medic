@@ -1,0 +1,74 @@
+[gd_scene load_steps=11 format=3 uid="uid://s73qrl1qcvoj"]
+
+[ext_resource type="Script" path="res://Body.gd" id="1_qclus"]
+[ext_resource type="Texture2D" uid="uid://djpjxd7m7qta4" path="res://bacteria.png" id="2_2lo85"]
+[ext_resource type="Script" path="res://BacteriaAiComponent.gd" id="3_vt1v3"]
+[ext_resource type="Script" path="res://DamageComponent.gd" id="4_xs0mm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0w1oe"]
+atlas = ExtResource("2_2lo85")
+region = Rect2(0, 0, 34, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u4go8"]
+atlas = ExtResource("2_2lo85")
+region = Rect2(34, 0, 34, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ytxj"]
+atlas = ExtResource("2_2lo85")
+region = Rect2(68, 0, 34, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2uy67"]
+atlas = ExtResource("2_2lo85")
+region = Rect2(102, 0, 34, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1rl0y"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0w1oe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u4go8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ytxj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2uy67")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 8.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7pscy"]
+radius = 130.0
+height = 500.0
+
+[node name="Bacteria" type="RigidBody2D" node_paths=PackedStringArray("sprite", "ai_component", "damage_component")]
+script = ExtResource("1_qclus")
+sprite = NodePath("AnimatedSprite2D")
+health = 150.0
+ai_component = NodePath("AiComponent")
+damage_component = NodePath("DamageComponent")
+despawn_threshold = 24.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(10, 10)
+sprite_frames = SubResource("SpriteFrames_1rl0y")
+animation = &"new_animation"
+frame_progress = 0.867142
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -60)
+shape = SubResource("CapsuleShape2D_7pscy")
+
+[node name="AiComponent" type="Node2D" parent="."]
+script = ExtResource("3_vt1v3")
+speed = 400.0
+
+[node name="DamageComponent" type="Node2D" parent="." node_paths=PackedStringArray("origin")]
+script = ExtResource("4_xs0mm")
+damage = 10.0
+type = "Bacteria"
+origin = NodePath("..")

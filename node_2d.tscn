@@ -1,0 +1,27 @@
+[gd_scene load_steps=7 format=3 uid="uid://ctwp5h3y8qvhl"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_7prg0"]
+[ext_resource type="PackedScene" uid="uid://c713gdopxn0mv" path="res://ship.tscn" id="1_x7u6m"]
+[ext_resource type="PackedScene" uid="uid://g80bw2povbkg" path="res://blood_cell.tscn" id="2_7ruev"]
+[ext_resource type="PackedScene" uid="uid://chw7l6dbdk8r7" path="res://virus.tscn" id="4_nysq7"]
+[ext_resource type="PackedScene" uid="uid://dau10qj0hedet" path="res://white_blood_cell.tscn" id="5_5d5m1"]
+[ext_resource type="PackedScene" uid="uid://s73qrl1qcvoj" path="res://bacteria.tscn" id="6_nac2h"]
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("player")]
+script = ExtResource("1_7prg0")
+player = NodePath("CharacterBody2D")
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("1_x7u6m")]
+position = Vector2(580, 268)
+
+[node name="Bacteria" parent="." instance=ExtResource("6_nac2h")]
+position = Vector2(1043, 305)
+
+[node name="White Blood Cell" parent="." instance=ExtResource("5_5d5m1")]
+position = Vector2(523, 67)
+
+[node name="Blood Cell" parent="." instance=ExtResource("2_7ruev")]
+position = Vector2(540, 450)
+
+[node name="Virus" parent="." instance=ExtResource("4_nysq7")]
+position = Vector2(599, 479)
