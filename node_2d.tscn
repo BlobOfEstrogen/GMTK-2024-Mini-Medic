@@ -1,11 +1,45 @@
-[gd_scene load_steps=3 format=3 uid="uid://ctwp5h3y8qvhl"]
+[gd_scene load_steps=6 format=3 uid="uid://ctwp5h3y8qvhl"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_7prg0"]
 [ext_resource type="PackedScene" uid="uid://c713gdopxn0mv" path="res://ship.tscn" id="1_x7u6m"]
+[ext_resource type="PackedScene" uid="uid://c74car4g412am" path="res://vein.tscn" id="3_spthg"]
+[ext_resource type="Texture2D" uid="uid://3lexwoaelxr2" path="res://bloodvesselwall.png" id="4_nkogm"]
+[ext_resource type="Texture2D" uid="uid://cr588mamnug6x" path="res://pinktissuewall.png" id="5_5vbel"]
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("player")]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("player", "scale_timer", "spawn_timer", "spawn_area")]
 script = ExtResource("1_7prg0")
 player = NodePath("CharacterBody2D")
+scale_timer = NodePath("ScaleTimer")
+spawn_timer = NodePath("SpawnTimer")
+spawn_area = NodePath("SpawnArea")
+
+[node name="Vein" parent="." node_paths=PackedStringArray("spawn_area", "timer", "player") instance=ExtResource("3_spthg")]
+vein_width = 1000.0
+wall_width = 250.0
+force = 1500.0
+wall_texture = ExtResource("4_nkogm")
+background_texture = ExtResource("5_5vbel")
+spawn_area = NodePath("../SpawnArea")
+segments = 500
+segment_length = 2000.0
+timer = NodePath("../BeatTimer")
+player = NodePath("../CharacterBody2D")
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("1_x7u6m")]
-position = Vector2(580, 268)
+position = Vector2(-140, 6)
+
+[node name="SpawnArea" type="Area2D" parent="."]
+
+[node name="ScaleTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 15.0
+autostart = true
+
+[node name="SpawnTimer" type="Timer" parent="."]
+process_callback = 0
+autostart = true
+
+[node name="BeatTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 5.0
+autostart = true

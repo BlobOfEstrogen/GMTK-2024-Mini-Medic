@@ -16,7 +16,7 @@ material = SubResource("StandardMaterial3D_p1e7p")
 radius = 16.0
 height = 64.0
 
-[node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("gun_1", "gun_2", "camera")]
+[node name="Ship" type="CharacterBody2D" node_paths=PackedStringArray("gun_1", "gun_2", "camera")]
 collision_layer = 13
 script = ExtResource("1_jpbw7")
 gun_1 = NodePath("Gun")
@@ -44,3 +44,5 @@ scale = Vector2(2, 2)
 flip_h = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Timer" type="Timer" parent="."]

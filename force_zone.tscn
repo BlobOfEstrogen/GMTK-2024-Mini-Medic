@@ -10,5 +10,3 @@ linear_damp_space_override = 3
 linear_damp = 1.0
 angular_damp_space_override = 3
 script = ExtResource("1_fyxka")
-
-[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]

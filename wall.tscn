@@ -1,15 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://bc73fxjtypk0y"]
+[gd_scene load_steps=2 format=3 uid="uid://bc73fxjtypk0y"]
 
 [ext_resource type="Script" path="res://Wall.gd" id="1_2vao3"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_pmg10"]
-
-[node name="Wall" type="Line2D" node_paths=PackedStringArray("shape")]
+[node name="Wall" type="Line2D"]
+z_index = 1
+texture_repeat = 2
 points = PackedVector2Array(0, 0, 0, 0)
+end_cap_mode = 2
 script = ExtResource("1_2vao3")
-shape = NodePath("Area2D/CollisionShape2D")
-
-[node name="Area2D" type="StaticBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("RectangleShape2D_pmg10")

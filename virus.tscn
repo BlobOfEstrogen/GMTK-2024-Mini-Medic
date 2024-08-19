@@ -56,7 +56,6 @@ sprite = NodePath("AnimatedSprite2D")
 ai_component = NodePath("Ai")
 damage_component = NodePath("Damage")
 damaged_by = Array[String](["Projectile", "White"])
-despawn_threshold = 1.5
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_mhlmy")
